@@ -1,47 +1,108 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Bjarki by imalexjesus</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Bjarki</h1>
-      <h2 class="project-tagline">Bjarki the dog</h2>
-      <a href="https://github.com/imalexjesus/Bjarki" class="btn">View on GitHub</a>
-      <a href="https://github.com/imalexjesus/Bjarki/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/imalexjesus/Bjarki/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+<head>
+	<meta charset="UTF-8">
+	<title>Bjarki</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+	<style type="text/css">
+	body {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
 
-    <section class="main-content">
-      <p><code>### Welcome to GitHub Pages.</code>
-<code>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here [using GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/), select a template crafted by a designer, and publish. After your page is generated, you can check out the new</code>gh-pages<code>branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</code></p>
+	main {
+		background-image: url(main-bg.jpg);
+		background-repeat: no-repeat;
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	#cntdwn{
+		font-size: 60px;
+		font-family: Tahoma;
+	}
+	</style>
+</head>
 
-<p><code>### Designer Templates</code>
-<code>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</code></p>
+<body>
+	<main id="zxc">
+		<script language="JavaScript">
+		TargetDate = "04/26/2015 5:00 AM";
+		BackColor = "#CEF1FB";
+		ForeColor = "navy";
+		CountActive = true;
+		CountStepper = 1;
+		LeadingZero = true;
+		DisplayFormat = "%%D%% дней  %%H%% часов  %%M%% минут  %%S%% секунд";
+		FinishMessage = "It is finally here!";
+		</script>
+	</main>
+</body>
 
-<p><code>### Creating pages manually</code>
-<code>If you prefer to not use the automatic generator, push a branch named</code>gh-pages<code>to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</code></p>
+<script>
+function calcage(secs, num1, num2) {
+	s = ((Math.floor(secs / num1)) % num2).toString();
+	if (LeadingZero && s.length < 2)
+		s = "0" + s;
+	return "<b>" + s + "</b>";
+}
 
-<p><code>### Authors and Contributors</code>
-<code>You can @mention a GitHub username to generate a link to their profile. The resulting</code><code>element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (@defunkt), PJ Hyett (@pjhyett), and Tom Preston-Werner (@mojombo) founded GitHub.</code></p>
+function CountBack(secs) {
+	if (secs < 0) {
+		document.getElementById("cntdwn").innerHTML = FinishMessage;
+		return;
+	}
+	DisplayStr = DisplayFormat.replace(/%%D%%/g, calcage(secs, 86400, 100000));
+	DisplayStr = DisplayStr.replace(/%%H%%/g, calcage(secs, 3600, 24));
+	DisplayStr = DisplayStr.replace(/%%M%%/g, calcage(secs, 60, 60));
+	DisplayStr = DisplayStr.replace(/%%S%%/g, calcage(secs, 1, 60));
 
-<p><code>### Support or Contact</code>
-<code>Having trouble with Pages? Check out our [documentation](https://help.github.com/pages) or [contact support](https://github.com/contact) and we’ll help you sort it out.</code></p>
+	document.getElementById("cntdwn").innerHTML = DisplayStr;
+	if (CountActive)
+		setTimeout("CountBack(" + (secs + CountStepper) + ")", SetTimeOutPeriod);
+}
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/imalexjesus/Bjarki">Bjarki</a> is maintained by <a href="https://github.com/imalexjesus">imalexjesus</a>.</span>
+function putspan(backcolor, forecolor) {
+	document.getElementById('zxc').innerHTML = "<span id='cntdwn' style='background-color:" + backcolor +
+		"; color:" + forecolor + "'></span>";
+}
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
+if (typeof(BackColor) == "undefined")
+	BackColor = "white";
+if (typeof(ForeColor) == "undefined")
+	ForeColor = "black";
+if (typeof(TargetDate) == "undefined")
+	TargetDate = "12/31/2020 5:00 AM";
+if (typeof(DisplayFormat) == "undefined")
+	DisplayFormat = "%%D%% Days, %%H%% Hours, %%M%% Minutes, %%S%% Seconds.";
+if (typeof(CountActive) == "undefined")
+	CountActive = true;
+if (typeof(FinishMessage) == "undefined")
+	FinishMessage = "";
+if (typeof(CountStepper) != "number")
+	CountStepper = -1;
+if (typeof(LeadingZero) == "undefined")
+	LeadingZero = true;
 
-    </section>
 
-  
-  </body>
+CountStepper = Math.ceil(CountStepper);
+if (CountStepper == 0)
+	CountActive = false;
+var SetTimeOutPeriod = (Math.abs(CountStepper) - 1) * 1000 + 990;
+putspan(BackColor, ForeColor);
+var dthen = new Date(TargetDate);
+var dnow = new Date();
+if (CountStepper > 0)
+	ddiff = new Date(dnow - dthen);
+else
+	ddiff = new Date(dthen - dnow);
+gsecs = Math.floor(ddiff.valueOf() / 1000);
+CountBack(gsecs);
+</script>
+
 </html>
